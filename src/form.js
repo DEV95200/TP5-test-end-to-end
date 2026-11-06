@@ -24,6 +24,7 @@ document
             "__route_placeholder__",
             routeFullName[formValues.parcours]
         )
+        document.cookie = "parcours=" + formValues.parcours;
         banner.classList.remove("hidden")
         document.querySelector('a').inert = false;
 

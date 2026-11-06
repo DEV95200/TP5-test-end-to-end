@@ -13,7 +13,7 @@ async function fillForm(page) {
   await page.getByTestId("image").setInputFiles("e2e/files/image.png");
 }
 
-// Partie 6
+// Parties 4, 5 et 6
 test("Should submit the form", async ({ page }) => {
   await fillForm(page);
   await page.getByTestId("submit").click();
@@ -35,4 +35,12 @@ test("Should reset the form with 'rechoisir'", async ({ page }) => {
   await expect(page.getByTestId("banner")).toBeHidden();
   await expect(page.getByTestId("lastname")).toHaveValue("");
   await expect(page.getByTestId("lastname")).toBeEnabled();
+});
+
+// Partie 8 : cookie
+test("Should create a cookie on submit", async ({ page, context }) => {
+  await fillForm(page);
+  await page.getByTestId("submit").click();
+  const cookies = await context.cookies();
+  expect(cookies.find((c) => c.name === "parcours")?.value).toBe("dev");
 });
