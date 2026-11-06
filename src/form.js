@@ -33,3 +33,16 @@ document
                 item.inert = true;
         })
 })
+
+fetch("/api")
+    .then((res) => res.json())
+    .then((list) => {
+        const tpl = document.querySelector("#holiday-tpl");
+        const ul = document.querySelector("[data-testid=holidays]");
+        list.forEach((h) => {
+            const li = tpl.content.cloneNode(true);
+            li.querySelector(".date").textContent = h.date;
+            li.querySelector(".name").textContent = h.name;
+            ul.appendChild(li);
+        });
+    });

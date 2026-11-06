@@ -91,6 +91,11 @@
             <a href="" inert class="px-4 py-2 font-semibold text-l focus:bg-green-700 hover:bg-green-700 bg-green-500 text-white rounded-full shadow-sm ml-auto" data-reselect-link data-testid="reselect">Rechoisir</a>
         </section>
     </form>
+    <h2 class="text-2xl font-bold mt-6">Jours fériés</h2>
+    <ul data-testid="holidays"></ul>
+    <template id="holiday-tpl">
+        <li><span class="date"></span> : <span class="name"></span></li>
+    </template>
     <p class="mt-4">
         <a href="www.cyu.fr" class="underline hover:no-underline">Site de l'université</a>
     </p>
