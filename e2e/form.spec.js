@@ -1,17 +1,27 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
 
-// Partie 4
-test("Should submit the form", async ({ page }) => {
+async function fillForm(page) {
   await page.goto("/");
-  await page.locator("#lastname").fill("Dupont");
-  await page.locator("#firstname").fill("Jean");
+  await page.getByTestId("lastname").fill("Dupont");
+  await page.getByTestId("firstname").fill("Jean");
   for (const ue of ["ue1", "ue2", "ue3", "ue4", "ue5"]) {
-    await page.locator(`#${ue}`).fill("12");
+    await page.getByTestId(ue).fill("12");
   }
-  await page.locator("#parcours").selectOption("dev");
-  await page.locator("#portfolio").fill("https://example.com");
-  await page.locator("button[type=submit]").click();
-  await expect(page.locator(".banner")).toBeVisible();
-  await expect(page.locator(".banner")).toContainText("développement web");
+  await page.getByTestId("parcours").selectOption("dev");
+  await page.getByTestId("portfolio").fill("https://example.com");
+}
+
+// Partie 5
+test("Should submit the form", async ({ page }) => {
+  await fillForm(page);
+  await page.getByTestId("submit").click();
+  await expect(page.getByTestId("banner")).toBeVisible();
+  await expect(page.getByTestId("banner")).toContainText("développement web");
+});
+
+test("Should submit the form with Enter key", async ({ page }) => {
+  await fillForm(page);
+  await page.getByTestId("lastname").press("Enter");
+  await expect(page.getByTestId("banner")).toBeVisible();
 });
