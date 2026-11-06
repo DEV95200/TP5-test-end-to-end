@@ -10,3 +10,11 @@ test("Should visit one news on university's website", async ({ page }) => {
   await expect(page).toHaveURL(/\/actualites\//);
   expect(href).toContain("actualites");
 });
+
+// Partie 3
+test("Should search on wikipedia", async ({ page }) => {
+  await page.goto("https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal");
+  await page.locator('input[name="search"]').first().fill("Playwright");
+  await page.locator('input[name="search"]').first().press("Enter");
+  await expect(page).toHaveURL(/Playwright/);
+});
